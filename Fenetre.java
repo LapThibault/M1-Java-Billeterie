@@ -121,7 +121,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	
 	// Le clic
 	public void actionPerformed(ActionEvent arg0) {     	    
-		// Connection à la BDD, nécessite une BDD postgres
+		// Connection à la BDD, nécessite une BDD postgres et un .jar
 		 try {
 		        Class.forName("org.postgresql.Driver");
 
