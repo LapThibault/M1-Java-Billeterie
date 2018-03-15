@@ -119,23 +119,35 @@ public class Fenetre extends JFrame implements ActionListener{
 	    this.setVisible(true);
 	}
 	
+	
 	// Le clic
-	public void actionPerformed(ActionEvent arg0) {     	    
-		// Connection à la BDD, nécessite une BDD postgres et un .jar
-		 try {
-		        Class.forName("org.postgresql.Driver");
+	public void actionPerformed(ActionEvent arg0)  
+			throws ChampVideException {     	    
+		// Connection à la BDD
+		
+			 if(innom.getText().equals("") || inprenom.getText().equals("") || inmail.getText().equals("")) {
+				 throw new ChampVideException();
+			 }
+			 else {
+				 try {
+				        Class.forName("org.postgresql.Driver");
 
-		        String url = "jdbc:postgresql://localhost:5432/Billeterie";
-		        String user = "postgres";
-		        String passwd = ""; 
+				        String url = "jdbc:postgresql://localhost:5432/Billeterie";
+				        String user = "postgres";
+				        String passwd = ""; 
 
-		        Connection conn = DriverManager.getConnection(url, user, passwd);
-		        Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-				
-		        state.executeUpdate("INSERT INTO billet (prenom, nom, mail, concert, assise) VALUES('"+inprenom.getText()+"','"+innom.getText()+"','"+inmail.getText()+"','"+concert.getSelectedItem()+"','"+assise.isSelected()+"')");
-		        System.out.println("Informations rentrées dans la BDD");
-		      } catch (Exception e) {
-		        e.printStackTrace();
-		      }  
-	} 
+				        Connection conn = DriverManager.getConnection(url, user, passwd);
+				        Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+						
+				        state.executeUpdate("INSERT INTO billet (prenom, nom, mail, concert, assise) VALUES('"+inprenom.getText()+"','"+innom.getText()+"','"+inmail.getText()+"','"+concert.getSelectedItem()+"','"+assise.isSelected()+"')");
+				        System.out.println("Informations rentrées dans la BDD");
+				      } 
+				 catch (Exception e) {
+					 e.printStackTrace();
+				 } 
+			 }		 		 
+			} 
 }
+	
+	//public void actionPerformed(ActionEvent arg0) { }
+
